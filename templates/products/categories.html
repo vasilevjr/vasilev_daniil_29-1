@@ -1,0 +1,21 @@
+{% extends 'layoutеs/index.html' %}
+
+{% block content %}
+    <style type="text/css">
+           .categories {
+                width: 50%;
+                margin-left: 10%;
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+           }
+    </style>
+     <div class="categories">
+        {% for category in categories %}
+            <img src="{{ category.image }}" alt="">
+            <div class="card" style="width: 18rem; margin-bottom: 20px;">
+  <div class="card-body">
+    <h5 class="card-title">{{ category.title }}</h5>
+
+    {% endfor %}
+{% endblock %}
