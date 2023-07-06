@@ -12,54 +12,20 @@ class MainPageCBV(ListView):
     model = Product
     template_name = 'layoutеs/index.html'
 
-def products_view(request):
-    if request.method == 'GET':
-        posts = Product.objects.all()
-        search_text = request.GET.get('search')
-        page = int(request.GET.get('page', 1))
 
-        max_page = posts.__len__() / PAGINATION_LIMIT
-
-        posts = posts[PAGINATION_LIMIT * (page - 1):PAGINATION_LIMIT * page]
-
-        if round(max_page) < max_page:
-            max_page = round(max_page)+1
-        else:
-            max_page = round(max_page)
-
-        if search_text:
-            ''' startswith, endswith, contains '''
-            ''' AND, OR '''
-
-            posts = posts.filter(Q(title__contains=search_text) | Q(description__contains=search_text))
-
-
-        context_data = {
-            'posts': posts,
-            'user': request.user,
-            'pages': range(1, max_page+1)
-        }
-
-        return render(request, 'products/products.html', context=context_data)
-
-
-class PostCBV(ListView):
-    model = Product
-    template_name = 'products/products.html'
-
+class ProductsCBV(ListView):
     def get(self, request, *args, **kwargs):
         posts = self.model.objects.all()
         search_text = request.GET.get('search')
         page = int(request.GET.get('page', 1))
 
         max_page = posts.__len__() / PAGINATION_LIMIT
-
-        posts = posts[PAGINATION_LIMIT * (page - 1):PAGINATION_LIMIT * page]
-
         if round(max_page) < max_page:
                 max_page = round(max_page) + 1
         else:
                 max_page = round(max_page)
+
+        posts = posts[PAGINATION_LIMIT * (page - 1):PAGINATION_LIMIT * page]
 
         if search_text:
             ''' startswith, endswith, contains '''

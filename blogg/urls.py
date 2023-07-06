@@ -19,14 +19,14 @@ from django.urls import path
 from django.conf.urls.static import static
 from blogg import settings
 from posts.views import categories_view, post_create_view, product_detail_view, \
-    MainPageCBV, PostCBV
+    MainPageCBV, ProductsCBV
 from users.views import register_view, login_view, logout_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', MainPageCBV.as_view()),
 
-    path('products/', PostCBV.as_view()),
+    path('products/', ProductsCBV.as_view(model=Product, template_name='products/products.html')),
     path('categories/', categories_view),
     path('products/create/', post_create_view),
     path('products/<int:pk>/', product_detail_view),
